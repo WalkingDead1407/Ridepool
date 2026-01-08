@@ -27,9 +27,17 @@ environment:
 # dependencies can be manually updated by changing the version numbers below to
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
+
 dependencies:
   flutter:
     sdk: flutter
+
+  firebase_core: ^4.3.0
+  firebase_auth: ^6.1.3           # For Google sign-in
+  google_sign_in: ^6.2.1          # For authentication
+  cloud_firestore: ^6.1.1         # For ride listings
+  flutter_map: ^8.2.2             # Free OpenStreetMap widget
+  latlong2: ^0.9.0                # Needed by flutter_map
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.

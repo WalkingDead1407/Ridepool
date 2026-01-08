@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "496803122868",
+    "project_id": "ridepool-8bac6",
+    "storage_bucket": "ridepool-8bac6.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:496803122868:android:6ab80b4d4ef310c64e51e1",
+        "android_client_info": {
+          "package_name": "com.tooshar.ridepool"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "496803122868-ncefadt6hj84vfs51oe6a6rb9nvrb39h.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAoLTlHLseqlASmiQm4Q1QqeHUbCQeBCug"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "496803122868-ncefadt6hj84vfs51oe6a6rb9nvrb39h.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "496803122868-st5i497ovir6vm1i1equp56da62em7s3.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.ridepool"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
