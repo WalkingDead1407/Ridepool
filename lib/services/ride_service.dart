@@ -93,4 +93,23 @@ class RideService {
     if (!doc.exists) throw Exception("Ride not found");
     return Ride.fromFirestore(doc);
   }
+  /// Discover rides by city
+Future<List<Ride>> discoverRides({
+  required String startCity,
+  required String endCity,
+}) async {
+  final querySnapshot = await _db
+      .collection('rides')
+      .where('isActive', isEqualTo: true)
+      .where('availableSeats', isGreaterThan: 0)
+      .where('startCity', isEqualTo: startCity)
+      .where('endCity', isEqualTo: endCity)
+      .orderBy('availableSeats', descending: true)
+      .get();
+
+  return querySnapshot.docs
+      .map((doc) => Ride.fromFirestore(doc))
+      .toList();
+}
+
 }
