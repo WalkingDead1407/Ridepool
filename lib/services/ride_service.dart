@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import '../models/ride_model.dart';
+import 'lib/models/ride_model.dart';
+import 'lib/utils/price_utils.dart';
 
 class RideService {
   final FirebaseFirestore _db = FirebaseFirestore.instance;
@@ -28,16 +29,28 @@ class RideService {
         throw Exception("No available seats");
       }
 
-      // Update seats and joined users
+      if (ride.joinedUserIds.contains(userId)) {
+        throw Exception("User already joined");
+      }
+
       final updatedJoined = List<String>.from(ride.joinedUserIds)..add(userId);
+      final newAvailableSeats = ride.availableSeats - 1;
+
+      final newPricePerPerson = PriceUtils.pricePerPerson(
+        totalPrice: ride.totalPrice,
+        totalSeats: ride.totalSeats,
+        availableSeats: newAvailableSeats,
+      );
+
       transaction.update(docRef, {
-        'availableSeats': ride.availableSeats - 1,
+        'availableSeats': newAvailableSeats,
         'joinedUserIds': updatedJoined,
+        'pricePerPerson': newPricePerPerson,
       });
     });
   }
 
-  /// Leave a ride (optional, in case user cancels)
+  /// Leave a ride
   Future<void> leaveRide({
     required String rideId,
     required String userId,
@@ -56,11 +69,20 @@ class RideService {
         throw Exception("User is not part of this ride");
       }
 
-      // Update seats and joined users
-      final updatedJoined = List<String>.from(ride.joinedUserIds)..remove(userId);
+      final updatedJoined =
+          List<String>.from(ride.joinedUserIds)..remove(userId);
+      final newAvailableSeats = ride.availableSeats + 1;
+
+      final newPricePerPerson = PriceUtils.pricePerPerson(
+        totalPrice: ride.totalPrice,
+        totalSeats: ride.totalSeats,
+        availableSeats: newAvailableSeats,
+      );
+
       transaction.update(docRef, {
-        'availableSeats': ride.availableSeats + 1,
+        'availableSeats': newAvailableSeats,
         'joinedUserIds': updatedJoined,
+        'pricePerPerson': newPricePerPerson,
       });
     });
   }
